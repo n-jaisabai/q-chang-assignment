@@ -45,6 +45,10 @@ func (ucase *problem2Usecase) MakeChange(ctx context.Context, amount float64, pr
 		var quantity = changeAmount / coin.CoinType
 
 		if quantity > float64(coin.CoinAmount) {
+			if int(coin.CoinAmount) <= 0 {
+				continue
+			}
+
 			moneyChange = append(moneyChange, &models.Money{
 				Type:   coin.CoinType,
 				Amount: coin.CoinAmount,
