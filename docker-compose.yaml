@@ -9,6 +9,8 @@ services:
       - "5432:5432"
     volumes:
       - data:/var/lib/postgresql/data
+    networks:
+      - db_network
   server:
     build:
       context: .
@@ -17,8 +19,11 @@ services:
     depends_on:
       - database
     networks:
-      - default
+      - db_network
     ports:
-    - "8000:8000"
+      - "8000:8000"
 volumes:
   data:
+networks:
+  db_network:
+    driver: bridge
